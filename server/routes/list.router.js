@@ -72,19 +72,11 @@ router.delete('/:id', (req, res) => {
 // CREATE A PUT ROUTE
 router.put('/:id', (req, res) => {
     // console.log('In router.put');
-
-    const taskId = req.params.id
-
-    let queryText = '';
-
-    let checkedOff = req.body.isComplete;
-
-    if(checkedOff == 'true') {
-        queryText = `UPDATE "chores" SET "isComplete" = NOT "isComplete" WHERE "chores".id = $1;`;
-    } else {
-        console.log('In router.put else');
-        res.sendStatus(500);
-    }
+    // create a variable to store the updated info from the DOM
+    const taskId = req.params.id;
+    // create a varable that specifies how you want to change the database data
+    let queryText = `UPDATE "chores" SET "isComplete" = NOT "isComplete" WHERE "chores".id = $1;`;
+    //send the updated info to teh database
     pool.query(queryText, [taskId])
         .then(response => {
             console.log('This task has been checked off', taskId);
@@ -93,7 +85,6 @@ router.put('/:id', (req, res) => {
             console.log("router.put has an error", err);
             res.sendStatus(500);
         });
-
 })
 
 

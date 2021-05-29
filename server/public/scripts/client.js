@@ -60,7 +60,7 @@ function addChore () {
 
 // Create a GET route to retrieve the information from the database
 function getThoseTasks () {
-    //use ajax to connect to the server
+    //use ajax to connect to the server to get the stored data
     $.ajax({
         method: 'GET',
         url: '/list',
@@ -78,10 +78,18 @@ function getThoseTasks () {
 function renderTasks (tasks) {
     //empty the DOM
     $('#viewTasks').empty();
-    // create a loop to loop through the array 
+    // declare a variable with an empty string
+    let setClass = '';
+        // create a loop to loop through the array 
     for (let task of tasks) {
-    // append the data to the DOM
-    $('#viewTasks').append(`<tr>
+        // create a conditional that checks the task status to change the background
+        if (task.isComplete === true) {
+            setClass = 'changeBackground';
+        } else {
+            setClass = 'no';
+        }
+    // append the data to the DOM and create data setters 
+    $('#viewTasks').append(`<tr class='${setClass}'>
     <td>${task.task}</td>
     <td>${task.notes}</td>
     <td>${task.isComplete}</td>
@@ -91,6 +99,7 @@ function renderTasks (tasks) {
     }
 }
 
+//create a click handler that will call on the function to delete task once delete button is clicked
 function deleteTaskHandler () {
     deleteTask($(this).data("id"));
 }
@@ -118,16 +127,8 @@ function deleteTask (taskId) {
 
 //need to create a function to check off task and send info to the server
 function checkOffTask () {
+// create a variable to capture the data
 let taskId = ($(this).data("id"));
-//need to send the info to the server
-let status = $(this).closest('td').data("isComplete");
-console.log(status);
-if (status === true) {
-    $(this).closest('tr').addClass('changeBackground');
-}
-else if (status === false) {
-    $(this).closest('tr').removeClass();
-}
 //need to send the info to the server
 $.ajax({
     method: "PUT",

@@ -9,7 +9,7 @@ const pool = require('../modules/pool');
 
 router.post('/', (req, res) => {
 //create a console.log to see if any info was received from client
-console.log(req.body);
+// console.log(req.body);
 //need to provide instructions to the database on how to store the user input and... SANATIZE!!!
 let queryText = `INSERT INTO "chores" ("task", "notes") VALUES ($1, $2);`;
 
@@ -73,7 +73,7 @@ router.delete('/:id', (req, res) => {
 router.put('/:id', (req, res) => {
     // console.log('In router.put');
 
-    let taskId = req.params.id
+    const taskId = req.params.id
 
     let queryText = '';
 

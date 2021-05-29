@@ -13,12 +13,22 @@ header {
     margin: 25px 50px 50px;
 }
 
-.statusClass {
+#notesIn {
+    width: 50%;
+}
+
+
+.changeBackground {
     background-color: #f6416c;
 }
 
+
 th {
     text-align: center;
+}
+
+#toDoIn {
+    width: 25%;
 }
 
 tr {

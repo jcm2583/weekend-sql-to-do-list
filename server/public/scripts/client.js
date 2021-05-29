@@ -21,8 +21,12 @@ function clickListeners () {
     //need a click listener for the delete button
     $('#viewTasks').on('click', '.deleteButton', deleteTaskHandler);
     //need a click listener for checking of tasks
-    $('#viewTasks').on('click', '.completeButton', checkOffTaskHandler);
+    $('#viewTasks').on('click', '.completeButton', checkOffTask);
+
 }
+
+
+
 
 // create a function that will POST user input to the server
 function addChore () {
@@ -56,7 +60,6 @@ function addChore () {
 
 // Create a GET route to retrieve the information from the database
 function getThoseTasks () {
-    console.log('In getThoseTasks');
     //use ajax to connect to the server
     $.ajax({
         method: 'GET',
@@ -82,13 +85,12 @@ function renderTasks (tasks) {
     <td>${task.task}</td>
     <td>${task.notes}</td>
     <td>${task.isComplete}</td>
-    <td><button class="completeButton btn btn-outline-success" data-id="${task.id}">Complete Task</button></td>
-    <td><button class="deleteButton btn btn-outline-danger" data-id="${task.id}">Delete Task</button></td>
+    <td><button class="completeButton btn btn-outline-success" data-id="${task.id}" data-isComplete="${task.isComplete}">Complete Task</button></td>
+    <td><button class="deleteButton btn btn-outline-danger" data-id="${task.id}" data-isComplete="${task.isComplete}">Delete Task</button></td>
     </tr>`)
     }
 }
 
-// need to create a click handler for deleting a task
 function deleteTaskHandler () {
     deleteTask($(this).data("id"));
 }
@@ -109,13 +111,23 @@ function deleteTask (taskId) {
 }
 
 //need to create a click handler to check off chores when complete
-function checkOffTaskHandler () {
-    checkOffTask($(this).data("id"));
-    // $('.checkoff').toggleClass("statusclass");
-}
+// function checkOffTaskHandler () {
+//     let taskId = ($(this).data("id"));
+//     checkOffTask(taskId);
+// }
 
 //need to create a function to check off task and send info to the server
-function checkOffTask (taskId) {
+function checkOffTask () {
+let taskId = ($(this).data("id"));
+//need to send the info to the server
+let status = $(this).closest('td').data("isComplete");
+console.log(status);
+if (status === true) {
+    $(this).closest('tr').addClass('changeBackground');
+}
+else if (status === false) {
+    $(this).closest('tr').removeClass();
+}
 //need to send the info to the server
 $.ajax({
     method: "PUT",
@@ -124,7 +136,7 @@ $.ajax({
         isComplete: true
     }
 }).then( response => {
-    console.log("The task has been completed");
+    console.log("The task status has changed");
     getThoseTasks();
 }).catch( err => {
     console.log('There was an issue with the complete button', err);

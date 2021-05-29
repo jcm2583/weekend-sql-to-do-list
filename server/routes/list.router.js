@@ -52,19 +52,48 @@ res.send(result.rows);
 
 // CREATE A DELETE ROUTE
 router.delete('/:id', (res, req) => {
+    console.log(req.params.id);
+    // console.log('in router.delete');
     //identify to the database what you want to delete
-    let queryText = `DELETE FROM "chores" WHERE "id" = $1;`;
+    // let queryText = `DELETE FROM "chores" WHERE "id" = $1;`;
     //create a variable with the client side data to delete
-    let deleteTask = req.params.id
+    // let deleteTask = req.params.id
     // send the delete request to the database
-    pool.query(queryText, [deleteTask])
-    .then(response => {
-        console.log('The following task was deleted', deleteTask);
-        res.sendStatus(200);
-    }).catch( err => {
-        console.log('There was an error', err);
+    // pool.query(queryText, [deleteTask])
+    // .then(response => {
+    //     console.log('The following task was deleted', deleteTask);
+    //     res.sendStatus(200);
+    // }).catch( err => {
+    //     console.log('There was an error', err);
+    //     res.sendStatus(500);
+    // });
+})
+
+// CREATE A PUT ROUTE
+router.put('/:id', (res, req) => {
+    console.log('In router.put');
+
+    let taskId = req.params.id
+
+    let queryText = '';
+
+    let checkedOff = req.body.isComplete;
+
+    if(checkedOff == 'true') {
+        queryText = `UPDATE "chores" SET "isComplete" = NOT "isComplete" WHERE "chores".id = $1;`;
+    } else {
+        console.log('In router.put else');
         res.sendStatus(500);
-    });
+    }
+    pool.query(queryText, [taskId])
+        .then(response => {
+            console.log('This task has been checked off', taskId);
+            res.sendStatus(202);
+        }).catch ( err => {
+            console.log("router.put has an error", err);
+            res.sendStatus(500);
+        });
+
 })
 
 

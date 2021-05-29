@@ -16,10 +16,12 @@ getThoseTasks();
 
 //create a function for click listeners
 function clickListeners () {
-    //need a click lister for adding the user input to the server
+    //need a click listener for adding the user input to the server
     $("#submitButton").on('click', addChore);
-    //need a click lister for the delete button
+    //need a click listener for the delete button
     $('#viewTasks').on('click', '.deleteButton', deleteTaskHandler);
+    //need a click listener for checking of tasks
+    $('#viewTasks').on('click', '.checkoff', checkOffTaskHandler);
 }
 
 // create a function that will POST user input to the server
@@ -79,17 +81,18 @@ function renderTasks (tasks) {
     $('#viewTasks').append(`<tr>
     <td>${task.task}</td>
     <td>${task.notes}</td>
-    <td><input type="checkbox"></td>
+    <td><input type="checkbox" class="checkoff" data-id="${task.id}"></td>
     <td><button class="deleteButton" data-id="${task.id}">Remove Task</button></td>
     </tr>`)
     }
 }
 
+// need to create a click handler for deleting a task
 function deleteTaskHandler () {
     deleteTask($(this).data("id"));
 }
 
-
+// need to create a function to delete task
 function deleteTask (taskId) {
     //need to use ajax to communicate to the server
     $.ajax({
@@ -102,4 +105,27 @@ function deleteTask (taskId) {
     }).catch( err => {
         console.log('There was a problem deleting the task', err);
     });
+}
+
+//need to create a click handler to check off chores when complete
+function checkOffTaskHandler () {
+    checkOffTask($(this).data("id"));
+}
+
+//need to create a function to check off task and send info to the server
+function checkOffTask (taskId) {
+//need to send the info to the server
+$.ajax({
+    method: "PUT",
+    url: `/list/${taskId}`,
+    data: {
+        isComplete: true
+    }
+}).then( response => {
+    console.log("The task has been checked off");
+    getThoseTasks();
+}).catch( err => {
+    console.log('There was an issue with the checkmark', err);
+});
+
 }

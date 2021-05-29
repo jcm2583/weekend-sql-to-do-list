@@ -21,7 +21,7 @@ function clickListeners () {
     //need a click listener for the delete button
     $('#viewTasks').on('click', '.deleteButton', deleteTaskHandler);
     //need a click listener for checking of tasks
-    $('#viewTasks').on('click', '.checkoff', checkOffTaskHandler);
+    $('#viewTasks').on('click', '.completeButton', checkOffTaskHandler);
 }
 
 // create a function that will POST user input to the server
@@ -81,8 +81,9 @@ function renderTasks (tasks) {
     $('#viewTasks').append(`<tr>
     <td>${task.task}</td>
     <td>${task.notes}</td>
-    <td><input type="checkbox" class="checkoff" data-id="${task.id}"></td>
-    <td><button class="deleteButton" data-id="${task.id}">Remove Task</button></td>
+    <td>${task.isComplete}</td>
+    <td><button class="completeButton btn btn-outline-success" data-id="${task.id}">Complete Task</button></td>
+    <td><button class="deleteButton btn btn-outline-danger" data-id="${task.id}">Delete Task</button></td>
     </tr>`)
     }
 }
@@ -123,10 +124,10 @@ $.ajax({
         isComplete: true
     }
 }).then( response => {
-    console.log("The task has been checked off");
+    console.log("The task has been completed");
     getThoseTasks();
 }).catch( err => {
-    console.log('There was an issue with the checkmark', err);
+    console.log('There was an issue with the complete button', err);
 });
 
 }

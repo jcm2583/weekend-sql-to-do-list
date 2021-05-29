@@ -71,7 +71,7 @@ router.delete('/:id', (req, res) => {
 
 // CREATE A PUT ROUTE
 router.put('/:id', (req, res) => {
-    console.log('In router.put');
+    // console.log('In router.put');
 
     let taskId = req.params.id
 

@@ -1,3 +1,11 @@
 body {
-    background-color: aqua;
+    background-color: #f8f3d4;
+}
+
+header {
+    background-color: #00b8a9;
+}
+
+tr {
+    background-color: #ffde7d;
 }

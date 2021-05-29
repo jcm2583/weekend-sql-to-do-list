@@ -10,8 +10,37 @@
     <script src="./scripts/client.js"></script>
     <title>Sql TODO List</title>
 </head>
-<h1>TO DO List!!!</h1>
+
+<header>
+<h1>TO-DO LIST!!!</h1>
+</header>
+
 <body>
-    
+
+    <div>
+        <input type="text" placeholder="Task" id="todoIn">
+        <input type="text" placeholder="Notes" id="notesIn">
+        <!-- <input type="checkbox" placeholder="Not done yet" value="" id="statusIn"> -->
+        <button id="submitButton">Add to List</button>
+        <!-- <button id="completeButton">Mark as Complete</button> -->
+        <!-- <button id="deleteButton">Remove</button> -->
+    </div>
+
+<section>
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Task</th>
+            <th scope="col">Notes</th>
+            <th scope="col">Completed?</th>
+          </tr>
+        </thead>
+        <tbody id="viewTasks">
+
+        </tbody>
+      </table>
+</section>
+
+
 </body>
 </html>

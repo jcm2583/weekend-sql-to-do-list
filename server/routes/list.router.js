@@ -14,10 +14,9 @@ console.log(req.body);
 let queryText = `INSERT INTO "chores" ("task", "notes") VALUES ($1, $2);`;
 
 //need to define the user input
-let addUserInput = [req.body.task, req.body.notes];
-
-//user input is safe to be added so let's add it
-pool.query(queryText, [addUserInput])
+let newTask = [req.body.task, req.body.notes];
+// user input is safe to be added so let's add it
+pool.query(queryText, newTask)
     .then( response => {
         //send status back to the client that their object was added to the database
         res.sendStatus(201);

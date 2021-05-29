@@ -1,4 +1,3 @@
-const { get } = require("../../routes/list.router");
 
 //check that javascript is working 
 console.log('JS is working!!!');
@@ -19,6 +18,8 @@ getThoseTasks();
 function clickListeners () {
     //need a click lister for adding the user input to the server
     $("#submitButton").on('click', addChore);
+    //need a click lister for the delete button
+    $('#viewTasks').on('click', '.deleteButton', deleteTask);
 }
 
 // create a function that will POST user input to the server
@@ -29,6 +30,7 @@ function addChore () {
         task: $('#toDoIn').val(),
         notes: $('#notesIn').val()
     }
+    console.log(newChoreObject);
     //send new object to the server
     $.ajax({
         method: 'POST',

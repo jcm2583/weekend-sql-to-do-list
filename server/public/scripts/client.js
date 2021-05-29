@@ -19,7 +19,7 @@ function clickListeners () {
     //need a click lister for adding the user input to the server
     $("#submitButton").on('click', addChore);
     //need a click lister for the delete button
-    $('#viewTasks').on('click', '.deleteButton', deleteTask);
+    $('#viewTasks').on('click', '.deleteButton', deleteTaskHandler);
 }
 
 // create a function that will POST user input to the server
@@ -79,17 +79,22 @@ function renderTasks (tasks) {
     $('#viewTasks').append(`<tr>
     <td>${task.task}</td>
     <td>${task.notes}</td>
-    <td><button class="taskButton">Task Complete!</button></td>
+    <td><input type="checkbox"></td>
     <td><button class="deleteButton" data-id="${task.id}">Remove Task</button></td>
     </tr>`)
     }
 }
 
+function deleteTaskHandler () {
+    deleteTask($(this).data("id"));
+}
+
+
 function deleteTask (taskId) {
     //need to use ajax to communicate to the server
     $.ajax({
         method: 'DELETE',
-        url: `list/${taskId}`
+        url: `/list/${taskId}`
     }).then( response => {
         console.log("The task was successfully deleted");
         //call on function to render the DOM

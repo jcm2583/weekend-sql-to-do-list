@@ -2,14 +2,20 @@ body {
     background-color: #f8f3d4;
 }
 
-.statusClass {
-    background-color: #f6416c;
+.formatInput {
+    text-align: center;
 }
 
 header {
     background-color: #00b8a9;
+    text-align: center;
+}
+
+.statusClass {
+    background-color: #f6416c;
 }
 
 tr {
     background-color: #ffde7d;
 }
+

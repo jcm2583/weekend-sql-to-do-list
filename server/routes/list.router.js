@@ -55,9 +55,8 @@ router.delete('/:id', (res, req) => {
     //identify to the database what you want to delete
     let queryText = `DELETE FROM "chores" WHERE "id" = $1;`;
     //create a variable with the client side data to delete
-    let deleteTask = req.params.id; 
-
-    //send the delete request to the database
+    let deleteTask = req.params.id
+    // send the delete request to the database
     pool.query(queryText, [deleteTask])
     .then(response => {
         console.log('The following task was deleted', deleteTask);

@@ -110,6 +110,7 @@ function deleteTask (taskId) {
 //need to create a click handler to check off chores when complete
 function checkOffTaskHandler () {
     checkOffTask($(this).data("id"));
+    // $('.checkoff').toggleClass("statusclass");
 }
 
 //need to create a function to check off task and send info to the server

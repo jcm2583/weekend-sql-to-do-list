@@ -1,9 +1,8 @@
 # Project Name
 
-[Project Instructions](./INSTRUCTIONS.md), this line may be removed once you have updated the README.md
+SQL To-Do App
 
 ## Description
 
-Your project description goes here. What problem did you solve? How did you solve it?
+I created an application that a user can use to keep track of tasks or chores that they need to complete. The application can receive and store user input and display that information to the DOM using jQuery. The application features a complete button that can be clicked to mark of a task and a delete button to remove a task. Using the POST, GET, PUT, and DELETE methods, the user data is sent to the server, which in turn sends that data to an SQL database where it is stored and updated according to the user's actions while using the application.
 
-Additional README details can be found [here](https://github.com/PrimeAcademy/readme-template/blob/master/README.md).
